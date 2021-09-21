@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/82b887c5-7986-4f0a-b341-7ca7b8d2c42d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/MyNotificationAppProto01",
+  "appService.deploySubpath": "."
+}
