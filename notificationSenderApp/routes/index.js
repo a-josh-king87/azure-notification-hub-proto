@@ -43,20 +43,17 @@ const connStr =
   "Endpoint=sb://albertsons-sb-01.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=h1X+x+Zg/N8eTsBpVUwV3q8t+GkZh9tB6U4VWSf9nPY=";
 
 const connStrTwo =
-  "Endpoint=sb://albert-proto-notification-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=FVMiLeS/BIwM65cFYj+rvEKtl18sAHDHbu2RxNrzXl8=";
+  "Endpoint=sb://albert-proto-notification-hub.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=RMW1qI9kf7CvMvdQLyOGyPiJKyTZ2GdmJawUZ85G/70=";
 
 const notificationHubService = azure.createNotificationHubService(
   hubname,
   connStrTwo
 );
 
-const notificationHubSB = azure.createServiceBusService(connStrTwo);
-
 if (!connStr) throw new Error("Must provide connection string");
 
 console.log("Connecting to " + connStr + " queue " + queueName);
 const serviceBusClient = new ServiceBusClient(connStr);
-const serviceBusClientTwo = new ServiceBusClient(connStrTwo);
 console.log("Success creating SB client");
 
 const message = {
@@ -72,25 +69,26 @@ function sendTestMessage() {
       notificationHubService.send(null, message, function (error) {
         if (!error) {
           //notification sent
-          console.log("sent to notification hub");
-        } else {
-          console.log("errr");
-        }
-      });
-
-      const sender = serviceBusClient.createSender(queueName);
-      //Send this to service bus queue
-      sender.sendMessages(message).then((error) => {
-        if (!error) {
-          //notification sent
-          sender.close();
-          console.log("sent to service bus");
+          console.log("Success sending with notification hub");
           resolve(`Success sending message: ${JSON.stringify(message)}`);
         } else {
-          sender.close();
           resolve("Errors occured: ", error);
         }
       });
+
+      // const sender = serviceBusClient.createSender(queueName);
+      // //Send this to service bus queue
+      // sender.sendMessages(message).then((error) => {
+      //   if (!error) {
+      //     //notification sent
+      //     sender.close();
+      //     console.log("sent to service bus");
+      //     resolve(`Success sending message: ${JSON.stringify(message)}`);
+      //   } else {
+      //     sender.close();
+      //     resolve("Errors occured: ", error);
+      //   }
+      // });
     });
   } catch (x) {
     console.log("error: ", x);
