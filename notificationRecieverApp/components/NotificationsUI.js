@@ -44,57 +44,6 @@ export default class Notifications extends Component {
       );
   }
 
-  onRegisterButtonPress() {
-    console.log('onRegisterButtonPress: ', this.state);
-    if (!this.state.registeredToken || !this.state.registeredOS) {
-      console.log("The push notifications token wasn't received.");
-      return;
-    }
-    let status: string = 'Registering...';
-    let isRegistered = this.state.isRegistered;
-    try {
-      this.setState({isBusy: true, status});
-      const pnPlatform = this.state.registeredOS == 'ios' ? 'apns' : 'fcm';
-      const pnToken = this.state.registeredToken;
-      const request = {
-        installationId: this.deviceId,
-        platform: pnPlatform,
-        pushChannel: pnToken,
-        tags: [],
-      };
-      this.notificationRegistrationService
-        .registerAsync(request)
-        .then(response => {
-          console.log('IDK Done Register: ', response);
-        });
-      status = `Registered for ${this.state.registeredOS} push notifications`;
-      isRegistered = true;
-    } catch (e) {
-      status = `Registration failed: ${e}`;
-    } finally {
-      this.setState({isBusy: false, status, isRegistered});
-    }
-  }
-
-  onDeregisterButtonPress() {
-    console.log('onDeregisterButtonPress: ', this.state);
-
-    if (!this.notificationService) return;
-
-    let status: string = 'Deregistering...';
-    let isRegistered = this.state.isRegistered;
-    try {
-      this.setState({isBusy: true, status});
-      //await this.notificationRegistrationService.deregisterAsync(this.deviceId);
-      status = 'Deregistered from push notifications';
-      isRegistered = false;
-    } catch (e) {
-      status = `Deregistration failed: ${e}`;
-    } finally {
-      this.setState({isBusy: false, status, isRegistered});
-    }
-  }
-
   onTokenReceived(token: any) {
     console.log(`Received a notification token on ${token.os}`);
     console.log(this.state);
@@ -129,6 +78,73 @@ export default class Notifications extends Component {
       // );
     }
   }
+  onRegisterButtonPress() {
+    console.log('onRegisterButtonPress: ', this.state);
+    if (!this.state.registeredToken || !this.state.registeredOS) {
+      console.log("The push notifications token wasn't received.");
+      return;
+    }
+    let status: string = 'Registering...';
+    let isRegistered = this.state.isRegistered;
+    try {
+      this.setState({isBusy: true, status});
+      const pnPlatform = this.state.registeredOS == 'ios' ? 'apns' : 'fcm';
+      const pnToken = this.state.registeredToken;
+      const request = {
+        installationId: this.deviceId,
+        platform: pnPlatform,
+        pushChannel: pnToken,
+        tags: [],
+      };
+      this.notificationRegistrationService
+        .registerAsync(request)
+        .then(response => {
+          console.log('IDK Done Register: ', response);
+          status = `Registered for ${this.state.registeredOS} push notifications`;
+          isRegistered = true;
+        });
+    } catch (e) {
+      status = `Registration failed: ${e}`;
+    } finally {
+      this.setState({isBusy: false, status, isRegistered});
+    }
+  }
+
+  onDeregisterButtonPress() {
+    console.log('onDeregisterButtonPress: ', this.state);
+
+    if (!this.notificationService) return;
+
+    let status: string = 'Deregistering...';
+    let isRegistered = this.state.isRegistered;
+    try {
+      this.setState({isBusy: true, status});
+      //await this.notificationRegistrationService.deregisterAsync(this.deviceId);
+      status = 'Deregistered from push notifications';
+      isRegistered = false;
+    } catch (e) {
+      status = `Deregistration failed: ${e}`;
+    } finally {
+      this.setState({isBusy: false, status, isRegistered});
+    }
+  }
+
+  getMessagesPress() {
+    console.log('getMessagesPress: ');
+
+    try {
+      this.notificationRegistrationService.getMessages().then(response => {
+        console.log('IDK Done Register: ', response);
+        //let status = response;
+        console.log(response);
+        //isRegistered = true;
+      });
+    } catch (e) {
+      //status = `Registration failed: ${e}`;
+    } finally {
+      // this.setState({isBusy: false, status, isRegistered});
+    }
+  }
 
   render() {
     return (
@@ -150,6 +166,19 @@ export default class Notifications extends Component {
             disabled={this.state.isBusy}>
             <Text>Deregister</Text>
           </Button>
+        </View>
+
+        <View style={styles.button}>
+          <Button
+            title="Get Messages"
+            onPress={() => this.getMessagesPress()}
+            disabled={this.state.isBusy}>
+            <Text>Get Messages</Text>
+          </Button>
+        </View>
+        <Text></Text>
+        <View>
+          <Text id="resultsArea">Results Here</Text>
         </View>
       </View>
     );

@@ -5,15 +5,17 @@ block content
     function executeCommandLine(type)
     {
       let urlTest = ""
+      let methodT = "POST";
       if(type=="testSend"){
         urlTest = "/sendTestMessage"
       }
       if(type=="checkForMessages"){
          urlTest = "/checkMessages"
+         methodT = "GET";
       }
         $.ajax({
           url: urlTest,
-          method: "POST",
+          method: methodT,
           dataType: 'json',
           cache: false,
           success: function(data){

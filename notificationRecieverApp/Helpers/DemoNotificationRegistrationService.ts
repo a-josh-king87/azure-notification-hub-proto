@@ -5,7 +5,6 @@ export default class DemoNotificationRegistrationService {
     try {
       const method = 'PUT';
       const registerApiUrl = `${this.apiUrl}/notifications/installations`;
-      console.log(registerApiUrl);
       const result = await fetch(registerApiUrl, {
         method: method,
         headers: {
@@ -38,6 +37,29 @@ export default class DemoNotificationRegistrationService {
       });
 
       this.validateResponse(deregisterApiUrl, method, null, result);
+      return result;
+    } catch (x) {
+      console.log('error occured: ', x);
+      return null;
+    }
+  }
+
+  async getMessages(request: any): Promise<Response> {
+    try {
+      const method = 'GET';
+      const registerApiUrl = `${this.apiUrl}/checkMessages`;
+      console.log(registerApiUrl);
+      const result = await fetch(registerApiUrl, {
+        method: method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          apiKey: this.apiKey,
+        },
+        body: JSON.stringify(request),
+      });
+
+      this.validateResponse(registerApiUrl, method, request, result);
       return result;
     } catch (x) {
       console.log('error occured: ', x);

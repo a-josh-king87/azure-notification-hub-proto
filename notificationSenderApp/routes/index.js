@@ -12,12 +12,12 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.post("/checkMessages", async function (req, res) {
+router.get("/checkMessages", async function (req, res) {
   await checkForMessages().then((result) => {
     //console.log("messages:: ");
     //console.log(result);
 
-    res.json({ message: "idk" });
+    res.json({ message: "josh" });
   });
 });
 
@@ -34,6 +34,13 @@ router.post("/sendTestMessage", async function (req, res) {
   });
 });
 
+router.put("/notifications/installations", function (req, res) {
+  res.json({ message: "You Hit meeee!" });
+});
+
+router.get("/notifications/installations", function (req, res) {
+  res.json({ message: "You Hit meeee!" });
+});
 module.exports = router;
 
 //Azure Function code
@@ -105,17 +112,17 @@ function checkForMessages() {
         console.log("IDKKKKKKK");
         console.log(allMessagesOne);
 
-        //resolve(allMessages);
+        resolve(allMessagesOne);
       });
 
     //Get from service bus queue
-    const receiver = serviceBusClient.createReceiver(queueName);
-    return new Promise((resolve) => {
-      receiver.receiveMessages(10).then((allMessages) => {
-        resolve("idk");
-        //resolve(allMessages);
-      });
-    });
+    // const receiver = serviceBusClient.createReceiver(queueName);
+    // return new Promise((resolve) => {
+    //   receiver.receiveMessages(10).then((allMessages) => {
+    //     resolve("idk");
+    //     //resolve(allMessages);
+    //   });
+    // });
   } catch (x) {
     console.log("error: ", x);
   }
