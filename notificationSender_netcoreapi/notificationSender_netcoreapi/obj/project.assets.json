@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi.csproj",
+      "projectUniqueName": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi.csproj",
       "projectName": "notificationSender_netcoreapi",
-      "projectPath": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi.csproj",
+      "projectPath": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi.csproj",
       "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-      "outputPath": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\obj\\",
+      "outputPath": "S:\\_Windows\\Documents\\ReactApps\\azure-notification-hub-proto\\notificationSender_netcoreapi\\notificationSender_netcoreapi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
